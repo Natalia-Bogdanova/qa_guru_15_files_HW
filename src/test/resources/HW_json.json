@@ -1,0 +1,14 @@
+{
+  "documentNumber": 9999000353,
+  "invoiceDate": "2022-11-12",
+  "items": [
+    {
+      "baseAmount": 10,
+      "baseUnitId": "ST",
+      "price": 55,
+      "name": "Батончик Fitness цел.злаками23,5г",
+      "productId": "000000000003316579",
+      "stockType": "QQ"
+    }
+  ]
+}
