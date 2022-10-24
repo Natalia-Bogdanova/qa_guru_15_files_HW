@@ -1,66 +1,64 @@
 package com.bogdanova;
 
-import com.codeborne.pdftest.PDF;
-import com.codeborne.xlstest.XLS;
-import com.google.gson.Gson;
-import com.opencsv.CSVReader;
-import jdk.internal.jmod.JmodFile;
-import org.assertj.core.api.Assertions;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.bogdanova.ParseHW;
 import org.junit.jupiter.api.Test;
 
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseHW {
-    ClassLoader cl = ParseHW.class.getClassLoader();
+import java.io.InputStream;
 
-    @Test
-    void zipTest() throws Exception {
-        Class<Object> cl;
-        InputStream is = cl.getResourceAsStream("TestHW.zip");
+public class ParseHW {
+        ClassLoader cl = ParseHW.class.getClassLoader();
+
+        @Test
+
+        void zipXls() throws Exception {
+                InputStream is = cl.getResourceAsStream("folder/TestHW.zip");
+                ZipInputStream zis = new ZipInputStream(new ZipInputStream(is));
+                ZipEntry entry;
+        while ((entry = zis.getNextEntry()) != null) {
+                String name = entry.getName();
+                long size = entry.getSize();
+        System.out.printf("File name: %s \t File size: %d \n", name, size);
+        assertThat(entry.getName()).isEqualTo("TestHW/Клиники по программе.xlsx");
+        assertThat(entry.getSize()).isEqualTo(47271);
+
+        }
+        }
+
+        @Test
+        void zipCsv() throws Exception {
+        InputStream is = cl.getResourceAsStream("folder/TestHW.zip");
         ZipInputStream zis = new ZipInputStream(is);
         ZipEntry entry;
         while ((entry = zis.getNextEntry()) != null) {
-            Assertions.assertThat(entry.getName()).isEqualTo("Клиники по программе.xlsx");
-            Assertions.assertThat(entry.getName()).isEqualTo("Natalia Bogdanova Communication Profile.pdf");
-            Assertions.assertThat(entry.getName()).isEqualTo("fileCSV.csv");
-            switch (entry.getName()) {
-                case "fileCSV.csv":
-                    JmodFile zf;
-                    try (InputStream inputStream = zf.getInputStream(entry);
-                         CSVReader reader = new CSVReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-                        List<String[]> content = reader.readAll();
-                        String[] row = content.get(0);
-                        String searchWords = row[1];
-                        assertThat(searchWords).isEqualTo("Samara");
-                    }
-                    break;
-                case "Клиники по программе.xlsx":
-                    try (InputStream inputStream = zf.getInputStream(entry)) {
-                        XLS xls = new XLS(inputStream);
-                        assertThat(
-                                xls.excel.getSheetAt(1)
-                                        .getRow(1)
-                                        .getCell(2)
-                                        .getStringCellValue()
-                        ).isEqualTo("Samara");
-                    }
-                    break;
-                case "Natalia Bogdanova Communication Profile.pdf":
-                    try (InputStream inputStream = zf.getInputStream(entry)) {
-                        PDF pdf = new PDF(inputStream);
-                        assertThat(pdf.author).isEqualTo("Максим");
-                    }
-                    break;
-            }
+        String name = entry.getName();
+        long size = entry.getSize();
+        System.out.printf("File name: %s \t File size: %d \n", name, size);
+        assertThat(entry.getName()).isEqualTo("fileCSV.csv");
+        assertThat(entry.getSize()).isEqualTo(68);
         }
-    }
+        }
 
-}
+        @Test
+        void zipPdf() throws Exception {
+        InputStream is = cl.getResourceAsStream("folder/TestHW.zip");
+        ZipInputStream zis = new ZipInputStream(new ZipInputStream(is));
+        ZipEntry entry;
+        while ((entry = zis.getNextEntry()) != null) {
+        String namePdf = entry.getName();
+        long size = entry.getSize();
+        assertThat(entry.getName()).isIn("Natalia Bogdanova Communication Profile.pdf");
+        System.out.println(entry.getName());
+        }
+        }
+
+
+        }
