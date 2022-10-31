@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'guru.qa'
+group 'com.bogdanova'
 version '1.0'
 
 repositories {

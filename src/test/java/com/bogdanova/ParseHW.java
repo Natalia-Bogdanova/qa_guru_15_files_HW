@@ -1,8 +1,5 @@
 package com.bogdanova;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.bogdanova.ParseHW;
 import org.junit.jupiter.api.Test;
 
 import java.util.zip.ZipEntry;
@@ -12,15 +9,22 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.File;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
 
 public class ParseHW {
         ClassLoader cl = ParseHW.class.getClassLoader();
 
         @Test
 
+
         void zipXls() throws Exception {
-                InputStream is = cl.getResourceAsStream("folder/TestHW.zip");
+                InputStream is = cl.getResourceAsStream("TestHW.zip");
                 ZipInputStream zis = new ZipInputStream(new ZipInputStream(is));
                 ZipEntry entry;
         while ((entry = zis.getNextEntry()) != null) {
@@ -28,14 +32,13 @@ public class ParseHW {
                 long size = entry.getSize();
         System.out.printf("File name: %s \t File size: %d \n", name, size);
         assertThat(entry.getName()).isEqualTo("TestHW/Клиники по программе.xlsx");
-        assertThat(entry.getSize()).isEqualTo(47271);
-
+        assertThat(entry.getSize()).isEqualTo(12288);
         }
         }
 
         @Test
         void zipCsv() throws Exception {
-        InputStream is = cl.getResourceAsStream("folder/TestHW.zip");
+        InputStream is = cl.getResourceAsStream("TestHW.zip");
         ZipInputStream zis = new ZipInputStream(is);
         ZipEntry entry;
         while ((entry = zis.getNextEntry()) != null) {
@@ -49,7 +52,7 @@ public class ParseHW {
 
         @Test
         void zipPdf() throws Exception {
-        InputStream is = cl.getResourceAsStream("folder/TestHW.zip");
+        InputStream is = cl.getResourceAsStream("TestHW.zip");
         ZipInputStream zis = new ZipInputStream(new ZipInputStream(is));
         ZipEntry entry;
         while ((entry = zis.getNextEntry()) != null) {
