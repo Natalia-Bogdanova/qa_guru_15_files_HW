@@ -24,27 +24,27 @@ public class ParseZipFileHW {
         @DisplayName("Checking PDF-file from ZIP")
         @Test
         void testPDF() throws Exception {
-                ZipFile zipfile = new ZipFile(new File("src/test/resources/Test_HW.zip"));
-                try (InputStream is = cl.getResourceAsStream("Test_HW.zip");
+                ZipFile zipfile = new ZipFile(new File("src/test/resources/HWParseZip.zip"));
+                try (InputStream is = cl.getResourceAsStream("HWParseZip.zip");
                      ZipInputStream zis = new ZipInputStream(is)) {
                         ZipEntry entry;
                         while ((entry = zis.getNextEntry()) != null) {
                                 if (entry.getName().contains(".pdf")) {
                                         try (InputStream inputStream = zipfile.getInputStream(entry)) {
                                                 PDF pdf = new PDF(inputStream);
-                                                assertThat(pdf.author).isEqualTo("Chromium");
-                                                assertThat(pdf.numberOfPages).isEqualTo(8);
+                                                assertThat(pdf.author).isEqualTo("Natali");
+                                                assertThat(pdf.numberOfPages).isEqualTo(1);
                                         }
                                 }
                         }
                 }
         }
 
-        @DisplayName("Checking XLS-file from ZIP")
+        @DisplayName("Checking XLSX-file from ZIP")
         @Test
         void zipXlsTest() throws Exception {
-                ZipFile zipfile = new ZipFile(new File("src/test/resources/Test_HW.zip"));
-                try (InputStream is = cl.getResourceAsStream("Test_HW.zip");
+                ZipFile zipfile = new ZipFile(new File("src/test/resources/HWParseZip.zip"));
+                try (InputStream is = cl.getResourceAsStream("HWParseZip.zip");
                      ZipInputStream zis = new ZipInputStream(is)) {
                         ZipEntry entry;
                         while ((entry = zis.getNextEntry()) != null) {
@@ -54,8 +54,8 @@ public class ParseZipFileHW {
                                                 AssertionsForClassTypes.assertThat(
                                                         xls.excel.getSheetAt(0)
                                                                 .getRow(1)
-                                                                .getCell(2).getStringCellValue()
-                                                ).isEqualTo("Волгоград");
+                                                                .getCell(1).getStringCellValue()
+                                                ).isEqualTo("0104665306490045215r5IBU0732117");
                                         }
                                 }
                         }
@@ -65,8 +65,8 @@ public class ParseZipFileHW {
         @DisplayName("Checking CSV-file from ZIP")
         @Test
         void zipCsvTest() throws Exception {
-                ZipFile zipfile = new ZipFile(new File("src/test/resources/Test_HW.zip"));
-                try (InputStream is = cl.getResourceAsStream("Test_HW.zip");
+                ZipFile zipfile = new ZipFile(new File("src/test/resources/HWParseZip.zip"));
+                try (InputStream is = cl.getResourceAsStream("HWParseZip.zip");
                      ZipInputStream zis = new ZipInputStream(is)) {
                         ZipEntry entry;
                         while ((entry = zis.getNextEntry()) != null) {
