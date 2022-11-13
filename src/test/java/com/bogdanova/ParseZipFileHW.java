@@ -90,8 +90,8 @@ public class ParseZipFileHW {
                 InputStream is = cl.getResourceAsStream("HW_json.json");
                 Gson gson = new Gson();
                 ItemsModel itemsModel = gson.fromJson(new InputStreamReader(is), ItemsModel.class);
-                assertThat(itemsModel.documentNumber).isEqualTo(123);
-                assertThat(itemsModel.invoiceDate).isEqualTo("2022-11-12");
+                assertThat(ItemsModel.documentNumber).isEqualTo(123);
+                assertThat(ItemsModel.invoiceDate).isEqualTo("2022-11-12");
                 assertThat(ItemsModel.items.baseAmount).isEqualTo(11);
                 assertThat(ItemsModel.items.baseUnitId).isEqualTo("ST");
                 assertThat(ItemsModel.items.price).isEqualTo(55);
