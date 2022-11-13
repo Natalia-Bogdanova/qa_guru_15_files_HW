@@ -1,14 +1,13 @@
 {
   "documentNumber": 123,
   "invoiceDate": "2022-11-12",
-  "items": [
+  "items":
     {
-      "baseAmount": 10,
+      "baseAmount": 11,
       "baseUnitId": "ST",
       "price": 55,
       "name": "Cake",
       "productId": "000000000003316579",
       "stockType": "QQ"
     }
-  ]
 }

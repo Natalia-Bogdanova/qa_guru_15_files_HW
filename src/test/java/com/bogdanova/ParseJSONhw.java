@@ -20,7 +20,7 @@ public class ParseJSONhw {
         ItemsModel itemsModel = gson.fromJson(new InputStreamReader(is), ItemsModel.class);
         assertThat(itemsModel.documentNumber).isEqualTo(123);
         assertThat(itemsModel.invoiceDate).isEqualTo("2022-11-12");
-        assertThat(ItemsModel.Items.baseAmount).isEqualTo(10);
+        assertThat(ItemsModel.Items.baseAmount).isEqualTo(11);
         assertThat(ItemsModel.Items.baseUnitId).isEqualTo("ST");
         assertThat(ItemsModel.Items.price).isEqualTo(55);
         assertThat(ItemsModel.Items.name).isEqualTo("Cake");
