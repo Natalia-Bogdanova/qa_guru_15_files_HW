@@ -1,7 +1,9 @@
 package com.bogdanova;
 
+import com.bogdanova.modelForJson.ItemsModel;
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
+import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
@@ -81,5 +83,20 @@ public class ParseZipFileHW {
                                 }
                         }
                 }
+        }
+        @DisplayName("Checking JSON-file with model")
+        @Test
+        void jsonJackson() {
+                InputStream is = cl.getResourceAsStream("HW_json.json");
+                Gson gson = new Gson();
+                ItemsModel itemsModel = gson.fromJson(new InputStreamReader(is), ItemsModel.class);
+                assertThat(itemsModel.documentNumber).isEqualTo(123);
+                assertThat(itemsModel.invoiceDate).isEqualTo("2022-11-12");
+                assertThat(ItemsModel.items.baseAmount).isEqualTo(11);
+                assertThat(ItemsModel.items.baseUnitId).isEqualTo("ST");
+                assertThat(ItemsModel.items.price).isEqualTo(55);
+                assertThat(ItemsModel.items.name).isEqualTo("Cake");
+                assertThat(ItemsModel.items.productId).isEqualTo("000000000003316579");
+                assertThat(ItemsModel.items.stockType).isEqualTo("QQ");
         }
         }

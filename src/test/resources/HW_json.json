@@ -1,8 +1,7 @@
 {
   "documentNumber": 123,
   "invoiceDate": "2022-11-12",
-  "items":
-    {
+  "items": {
       "baseAmount": 11,
       "baseUnitId": "ST",
       "price": 55,
