@@ -17,9 +17,9 @@ import java.util.zip.ZipInputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseHW {
+public class ParseZipFileHW {
 
-        ClassLoader cl = ParseHW.class.getClassLoader();
+        ClassLoader cl = ParseZipFileHW.class.getClassLoader();
 
         @DisplayName("Checking PDF-file from ZIP")
         @Test
@@ -36,7 +36,6 @@ public class ParseHW {
                                                 assertThat(pdf.numberOfPages).isEqualTo(8);
                                         }
                                 }
-
                         }
                 }
         }
