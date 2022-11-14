@@ -85,18 +85,20 @@ public class ParseZipFileHW {
                 }
         }
         @DisplayName("Checking JSON-file with model")
-        @Test
-        void jsonJackson() {
-                InputStream is = cl.getResourceAsStream("HW_json.json");
-                Gson gson = new Gson();
-                ItemsModel itemsModel = gson.fromJson(new InputStreamReader(is), ItemsModel.class);
-                assertThat(ItemsModel.documentNumber).isEqualTo(123);
-                assertThat(ItemsModel.invoiceDate).isEqualTo("2022-11-12");
-                assertThat(ItemsModel.items.baseAmount).isEqualTo(11);
-                assertThat(ItemsModel.items.baseUnitId).isEqualTo("ST");
-                assertThat(ItemsModel.items.price).isEqualTo(55);
-                assertThat(ItemsModel.items.name).isEqualTo("Cake");
-                assertThat(ItemsModel.items.productId).isEqualTo("000000000003316579");
-                assertThat(ItemsModel.items.stockType).isEqualTo("QQ");
-        }
+                @Test
+                void jsonJackson() throws Exception {
+                        InputStream is = cl.getResourceAsStream("HW_json.json");
+                        Gson gson = new Gson();
+                        ItemsModel itemsModel = gson.fromJson(new InputStreamReader(is), ItemsModel.class);
+                        assertThat(itemsModel.number).isEqualTo(1488);
+                        assertThat(itemsModel.time).isEqualTo("10.10.22 16:40:00");
+                        assertThat(itemsModel.vendorName).isEqualTo("Nestle");
+                        assertThat(itemsModel.warehouse.get(0)).isEqualTo("DC01");
+                        assertThat(itemsModel.warehouse.get(1)).isEqualTo("DC02");
+                        assertThat(itemsModel.items.BaseAmount).isEqualTo(30);
+                        assertThat(itemsModel.items.price).isEqualTo(20.6);
+                        assertThat(itemsModel.items.IdProduct).isEqualTo(544331);
+                        assertThat(itemsModel.items.productName).isEqualTo("Milk");
+                        assertThat(itemsModel.items.isActive).isTrue();
+                }
         }
